@@ -28,7 +28,7 @@ public class User {
 
     public boolean withdraw (double amount) {
         if (amount > balance) {
-            System.out.println("Insufficient balance\nRemaining Balance: "+balance);
+            System.out.println("\nInsufficient balance\nRemaining Balance: "+balance);
             return false;
         }
         balance -= amount;

@@ -11,20 +11,19 @@ public class Main {
         // User Answers
         int userChoice = 0;
         int loginChoice = 0;
-        boolean authenticated = false;
 
         // User account
         String name, username, password;
-        User currentUser;
-
-        System.out.println("Welcome to the Bank of Rafael");
+        User currentUser = null;
         UserManager userManager = new UserManager();
+
         do {
             // User Login and Account Creation
             try {
+                System.out.println("Welcome to the Bank of Rafael");
                 System.out.println("1. Login Account\n2. Create Account");
                 System.out.print("Answer: ");
-                 loginChoice = scanner.nextInt();
+                loginChoice = scanner.nextInt();
 
                  if (loginChoice == 1) {
 
@@ -40,8 +39,6 @@ public class Main {
                          currentUser = userManager.login(username, password); // create checker if no user or wrong user
 
                      } while (currentUser == null);
-
-                     authenticated = true;
 
                  } else {
                      // Create account method
@@ -60,15 +57,43 @@ public class Main {
 
                  }
             } catch (InputMismatchException e) {
-                System.out.println("Input must be a number");
+                System.out.println("\nInput must be a number");
+                scanner.nextLine();
             }
 
             if (loginChoice < 1 || loginChoice > 2) {
                 System.out.println("Answer must only be 1 or 2");
             }
 
-        } while (authenticated == false);
+        } while (currentUser == null);
 
+        do {
+            System.out.println("Welcome, "+currentUser.getName());
+            System.out.println("1. Deposit\n2. Withdraw\n3. Check Balance\n4. Exit");
+            System.out.print("Answer: ");
+            userChoice = scanner.nextInt();
+
+            switch (userChoice) {
+                case 1:
+                    double depositAmount;
+                    System.out.print("Deposit Amount: ");
+                    depositAmount = scanner.nextDouble();
+                    currentUser.deposit(depositAmount);
+                    break;
+                case 2:
+                    double withdrawAmount;
+                    System.out.print("Withdraw Amount: ");
+                    withdrawAmount = scanner.nextDouble();
+                    currentUser.withdraw(withdrawAmount);
+                    break;
+                case 3:
+                    System.out.println("Your current balance is "+currentUser.getBalance()+"\n");
+                    break;
+                case 4:
+                    System.out.println("Thank you for using bank of Rafal");
+            }
+
+        } while (userChoice != 4);
 
 
     }

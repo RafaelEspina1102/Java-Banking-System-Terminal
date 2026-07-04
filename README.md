@@ -1,1 +1,1 @@
-Change
+A basic hands on project for learning OOP
